@@ -16,7 +16,7 @@ namespace Clok
 {
 	public partial class MainForm : Form
 	{
-		Uri uriFileFont;
+		UriBuilder uriFileFont = new UriBuilder();
 		PrivateFontCollection privateFont = new PrivateFontCollection();
 		bool CustomFont;
 		public MainForm()
@@ -24,9 +24,6 @@ namespace Clok
 			InitializeComponent();
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-			RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
-			if (key.GetValue("Clok_VPD_311") != null) toolStripMenuItemLoadOnWindowsStartup.Checked = true;
-			key.Dispose();
 			LoadValue();
 			
 		}
@@ -37,7 +34,7 @@ namespace Clok
 			key.SetValue("Show_controls", toolStripMenuItemShowControls.Checked);
 			key.SetValue("Show_date",toolStripMenuItemShowDate.Checked);
 			key.SetValue("Show_weekday",toolStripMenuItemShowWeekday.Checked);
-			if(CustomFont) key.SetValue("Font",uriFileFont.AbsolutePath);
+			if(CustomFont) key.SetValue("Font",uriFileFont.Path);
 			else key.SetValue("Font",labelTime.Font.Name);
 			key.SetValue("Backgraund_color",labelTime.BackColor.ToArgb());
 			key.SetValue("Foregraund_color",labelTime.ForeColor.ToArgb());
@@ -46,21 +43,43 @@ namespace Clok
 		}
 		void LoadValue()
 		{
-			RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Clock_VPD_311", false);
-			toolStripMenuItemTopmost.Checked = Convert.ToBoolean(key.GetValue("Topmost"));
-			toolStripMenuItemShowControls.Checked = Convert.ToBoolean(key.GetValue("Show_controls"));
-			checkBoxShowDate.Checked = Convert.ToBoolean(key.GetValue("Show_date"));
-			checkBoxShowWeekday.Checked = Convert.ToBoolean(key.GetValue("Show_weekday"));
-			if (Convert.ToString(key.GetValue("Font")).Contains('/'))
+			if (Registry.CurrentUser.OpenSubKey("Software\\Clock_VPD_311") != null)
 			{
-				privateFont.AddFontFile(Convert.ToString(key.GetValue("Font")));
-				labelTime.Font = new Font(privateFont.Families[0], labelTime.Font.SizeInPoints);
+				RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Clock_VPD_311", false);
+				toolStripMenuItemTopmost.Checked = Convert.ToBoolean(key.GetValue("Topmost"));
+				toolStripMenuItemShowControls.Checked = Convert.ToBoolean(key.GetValue("Show_controls"));
+				checkBoxShowDate.Checked = Convert.ToBoolean(key.GetValue("Show_date"));
+				checkBoxShowWeekday.Checked = Convert.ToBoolean(key.GetValue("Show_weekday"));
+				if (Convert.ToString(key.GetValue("Font")).Contains('/'))
+				{
+					try
+					{
+						privateFont.AddFontFile(Convert.ToString(key.GetValue("Font")));
+						labelTime.Font = new Font(privateFont.Families[0], labelTime.Font.SizeInPoints);
+						CustomFont = true;
+						uriFileFont.Path = Convert.ToString(key.GetValue("Font"));
+					}
+					catch
+					{
+						MessageBox.Show($"File {key.GetValue("Font")} is missing or corrupted,select another","Warning",MessageBoxButtons.OK,MessageBoxIcon.Error);
+						toolStripMenuItemCustomFont_Click(null, null);
+					}
+				}
+				else labelTime.Font = new Font(new FontFamily(Convert.ToString(key.GetValue("Font"))), labelTime.Font.SizeInPoints);
+				labelTime.BackColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Backgraund_color")));
+				labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Foregraund_color")));
+				key.Dispose();
 			}
-			else labelTime.Font = new Font(new FontFamily(Convert.ToString(key.GetValue("Font"))), labelTime.Font.SizeInPoints);
-			labelTime.BackColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Backgraund_color")));
-			labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Foregraund_color")));
-			key.Dispose();
+			RegistryKey key1 = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
+			if (key1.GetValue("Clok_VPD_311") != null) toolStripMenuItemLoadOnWindowsStartup.Checked = true;
+			key1.Dispose();
 		}
+
+		private void ToolStripMenuItemCustomFont_Click(object sender, EventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
 		void SetVisibility(bool visible)
 		{
 			checkBoxShowDate.Visible = visible;
@@ -167,18 +186,28 @@ namespace Clok
 			};
 			if(openFile.ShowDialog()==DialogResult.OK)
 			{
-				uriFileFont = new Uri(openFile.FileName);
+				//uriFileFont = new UriBuilder(openFile.FileName);
+				uriFileFont.Path = openFile.FileName;
 				PrivateFontCollection fontbufer = new PrivateFontCollection();
-				privateFont.AddFontFile(uriFileFont.AbsolutePath);
-				fontbufer.AddFontFile(uriFileFont.AbsolutePath);
-				for (int i = 0; i <privateFont.Families.Length; i++)
+				try
 				{
-					if (privateFont.Families[i].Name == fontbufer.Families[0].Name)
+					privateFont.AddFontFile(uriFileFont.Path);
+					fontbufer.AddFontFile(uriFileFont.Path);
+					for (int i = 0; i <privateFont.Families.Length; i++)
 					{
-						labelTime.Font = new Font(privateFont.Families[i], labelTime.Font.SizeInPoints);
-						CustomFont = true;
-						break;
+						if (privateFont.Families[i].Name == fontbufer.Families[0].Name)
+						{
+							labelTime.Font = new Font(privateFont.Families[i], labelTime.Font.SizeInPoints);
+							CustomFont = true;
+							break;
+						}
 					}
+					
+				}
+				catch
+				{
+					MessageBox.Show($"File {uriFileFont.Path} corrupted,select another", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					toolStripMenuItemCustomFont_Click(null, null);
 				}
 				fontbufer.Dispose();
 			}
