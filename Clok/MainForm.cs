@@ -186,7 +186,6 @@ namespace Clok
 			};
 			if(openFile.ShowDialog()==DialogResult.OK)
 			{
-				//uriFileFont = new UriBuilder(openFile.FileName);
 				uriFileFont.Path = openFile.FileName;
 				PrivateFontCollection fontbufer = new PrivateFontCollection();
 				try
