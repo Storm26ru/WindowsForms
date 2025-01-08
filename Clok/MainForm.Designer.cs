@@ -83,7 +83,7 @@ namespace Clok
             this.toolStripSeparator4,
             this.toolStripMenuItemExit});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(210, 204);
+			this.contextMenuStrip.Size = new System.Drawing.Size(210, 226);
 			// 
 			// toolStripMenuItemTopmost
 			// 
@@ -91,7 +91,7 @@ namespace Clok
 			this.toolStripMenuItemTopmost.Name = "toolStripMenuItemTopmost";
 			this.toolStripMenuItemTopmost.Size = new System.Drawing.Size(209, 22);
 			this.toolStripMenuItemTopmost.Text = "Topmost";
-			this.toolStripMenuItemTopmost.EnabledChanged += new System.EventHandler(this.toolStripMenuItemTopmost_Chehanged);
+			this.toolStripMenuItemTopmost.CheckedChanged += new System.EventHandler(this.toolStripMenuItemTopmost_CheckedChanged_1);
 			// 
 			// toolStripMenuItemShowControls
 			// 
@@ -147,14 +147,14 @@ namespace Clok
 			// toolStripMenuItemBackgroundColor
 			// 
 			this.toolStripMenuItemBackgroundColor.Name = "toolStripMenuItemBackgroundColor";
-			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(180, 22);
+			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(168, 22);
 			this.toolStripMenuItemBackgroundColor.Text = "Background color";
 			this.toolStripMenuItemBackgroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
 			// 
 			// toolStripMenuItemForegroundColor
 			// 
 			this.toolStripMenuItemForegroundColor.Name = "toolStripMenuItemForegroundColor";
-			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(180, 22);
+			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(168, 22);
 			this.toolStripMenuItemForegroundColor.Text = "Foreground color";
 			this.toolStripMenuItemForegroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
 			// 
@@ -246,7 +246,6 @@ namespace Clok
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Clock VPD_311";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.contextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();

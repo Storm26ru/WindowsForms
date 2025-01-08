@@ -16,8 +16,6 @@ namespace Clok
 {
 	public partial class MainForm : Form
 	{
-		
-		bool CustomFont;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -26,12 +24,6 @@ namespace Clok
 
 		}
 		
-
-		private void ToolStripMenuItemCustomFont_Click(object sender, EventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
 		void SetVisibility(bool visible)
 		{
 			checkBoxShowDate.Visible = visible;
@@ -128,6 +120,10 @@ namespace Clok
 
 		}
 
+		private void toolStripMenuItemTopmost_CheckedChanged_1(object sender, EventArgs e)
+		{
+			this.TopMost = toolStripMenuItemTopmost.Checked;
+		}
 	}
 		
 }
