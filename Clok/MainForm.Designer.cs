@@ -40,8 +40,6 @@ namespace Clok
 			this.toolStripMenuItemShowWeekday = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemChooseFont = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItemCustomFont = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItemSystemFont = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemColors = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemBackgroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +91,7 @@ namespace Clok
 			this.toolStripMenuItemTopmost.Name = "toolStripMenuItemTopmost";
 			this.toolStripMenuItemTopmost.Size = new System.Drawing.Size(209, 22);
 			this.toolStripMenuItemTopmost.Text = "Topmost";
-			this.toolStripMenuItemTopmost.CheckedChanged += new System.EventHandler(this.toolStripMenuItemTopmost_CheckedChanged);
+			this.toolStripMenuItemTopmost.EnabledChanged += new System.EventHandler(this.toolStripMenuItemTopmost_Chehanged);
 			// 
 			// toolStripMenuItemShowControls
 			// 
@@ -133,26 +131,9 @@ namespace Clok
 			// 
 			// toolStripMenuItemChooseFont
 			// 
-			this.toolStripMenuItemChooseFont.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemCustomFont,
-            this.toolStripMenuItemSystemFont});
 			this.toolStripMenuItemChooseFont.Name = "toolStripMenuItemChooseFont";
 			this.toolStripMenuItemChooseFont.Size = new System.Drawing.Size(209, 22);
 			this.toolStripMenuItemChooseFont.Text = "Choose font";
-			// 
-			// toolStripMenuItemCustomFont
-			// 
-			this.toolStripMenuItemCustomFont.Name = "toolStripMenuItemCustomFont";
-			this.toolStripMenuItemCustomFont.Size = new System.Drawing.Size(141, 22);
-			this.toolStripMenuItemCustomFont.Text = "Custom font";
-			this.toolStripMenuItemCustomFont.Click += new System.EventHandler(this.toolStripMenuItemCustomFont_Click);
-			// 
-			// toolStripMenuItemSystemFont
-			// 
-			this.toolStripMenuItemSystemFont.Name = "toolStripMenuItemSystemFont";
-			this.toolStripMenuItemSystemFont.Size = new System.Drawing.Size(141, 22);
-			this.toolStripMenuItemSystemFont.Text = "System font";
-			this.toolStripMenuItemSystemFont.Click += new System.EventHandler(this.toolStripMenuItemSystemFont_Click);
 			// 
 			// toolStripMenuItemColors
 			// 
@@ -166,14 +147,14 @@ namespace Clok
 			// toolStripMenuItemBackgroundColor
 			// 
 			this.toolStripMenuItemBackgroundColor.Name = "toolStripMenuItemBackgroundColor";
-			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(168, 22);
+			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(180, 22);
 			this.toolStripMenuItemBackgroundColor.Text = "Background color";
 			this.toolStripMenuItemBackgroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
 			// 
 			// toolStripMenuItemForegroundColor
 			// 
 			this.toolStripMenuItemForegroundColor.Name = "toolStripMenuItemForegroundColor";
-			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(168, 22);
+			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(180, 22);
 			this.toolStripMenuItemForegroundColor.Text = "Foreground color";
 			this.toolStripMenuItemForegroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
 			// 
@@ -295,8 +276,6 @@ namespace Clok
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoadOnWindowsStartup;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExit;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCustomFont;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSystemFont;
 	}
 }
 
