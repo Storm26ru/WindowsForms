@@ -36,9 +36,10 @@ namespace Clok
 			key.SetValue("Show_weekday",toolStripMenuItemShowWeekday.Checked);
 			if(CustomFont) key.SetValue("Font",uriFileFont.Path);
 			else key.SetValue("Font",labelTime.Font.Name);
+			key.SetValue("FontSize", (int)labelTime.Font.SizeInPoints);
 			key.SetValue("Backgraund_color",labelTime.BackColor.ToArgb());
 			key.SetValue("Foregraund_color",labelTime.ForeColor.ToArgb());
-			key.Close();
+			//key.Close();
 			key.Dispose();
 		}
 		void LoadValue()
@@ -55,7 +56,7 @@ namespace Clok
 					try
 					{
 						privateFont.AddFontFile(Convert.ToString(key.GetValue("Font")));
-						labelTime.Font = new Font(privateFont.Families[0], labelTime.Font.SizeInPoints);
+						labelTime.Font = new Font(privateFont.Families[0], (int)key.GetValue("FontSize"));
 						CustomFont = true;
 						uriFileFont.Path = Convert.ToString(key.GetValue("Font"));
 					}
@@ -65,7 +66,7 @@ namespace Clok
 						toolStripMenuItemCustomFont_Click(null, null);
 					}
 				}
-				else labelTime.Font = new Font(new FontFamily(Convert.ToString(key.GetValue("Font"))), labelTime.Font.SizeInPoints);
+				else labelTime.Font = new Font(new FontFamily(Convert.ToString(key.GetValue("Font"))),(int)key.GetValue("FontSize"));
 				labelTime.BackColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Backgraund_color")));
 				labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Foregraund_color")));
 				key.Dispose();
@@ -227,5 +228,6 @@ namespace Clok
 		{
 			SaveValue();
 		}
+
 	}
 }
