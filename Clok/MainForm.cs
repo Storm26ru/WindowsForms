@@ -71,9 +71,9 @@ namespace Clok
 				labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(key.GetValue("Foregraund_color")));
 				key.Dispose();
 			}
-			RegistryKey key1 = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
-			if (key1.GetValue("Clok_VPD_311") != null) toolStripMenuItemLoadOnWindowsStartup.Checked = true;
-			key1.Dispose();
+			RegistryKey startup = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
+			if (startup.GetValue("Clok_VPD_311") != null) toolStripMenuItemLoadOnWindowsStartup.Checked = true;
+			startup.Dispose();
 		}
 
 		private void ToolStripMenuItemCustomFont_Click(object sender, EventArgs e)
