@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using Microsoft.Win32;
 using System.IO;
+using System.Runtime.InteropServices;
 
 
 namespace Clok
@@ -46,51 +47,16 @@ namespace Clok
 								$"{DateTime.Now.DayOfWeek}";
 		}
 
-		private void buttonHideControls_Click(object sender, EventArgs e)
-		{
-			SetVisibility(toolStripMenuItemShowControls.Checked = false);
+		private void buttonHideControls_Click(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = false;
 
-		}
-
-		private void labelTime_DoubleClick(object sender, EventArgs e)
-		{
-			SetVisibility(toolStripMenuItemShowControls.Checked = true);
-		}
-
-		private void toolStripMenuItemTopmost_CheckedChanged(object sender, EventArgs e)
-		{
-			this.TopMost = toolStripMenuItemTopmost.Checked;
-		}
-
-		private void toolStripMenuItemExit_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
-
-		private void toolStripMenuItemShowControls_CheckedChanged(object sender, EventArgs e)
-		{
-			SetVisibility(toolStripMenuItemShowControls.Checked);
-		}
-		private void toolStripMenuItemShowDate_Click(object sender, EventArgs e)
-		{
-			checkBoxShowDate.Checked = toolStripMenuItemShowDate.Checked;
-		}
-
-		private void checkBoxShowDate_CheckedChanged(object sender, EventArgs e)
-		{
-			toolStripMenuItemShowDate.Checked = checkBoxShowDate.Checked;
-		}
-
-		private void toolStripMenuItemShowWeekday_Click(object sender, EventArgs e)
-		{
-			checkBoxShowWeekday.Checked = toolStripMenuItemShowWeekday.Checked;
-		}
-
-		private void checkBoxShowWeekday_CheckedChanged(object sender, EventArgs e)
-		{
-			toolStripMenuItemShowWeekday.Checked = checkBoxShowWeekday.Checked;
-		}
-
+		private void labelTime_DoubleClick(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = true;
+		private void toolStripMenuItemExit_Click(object sender, EventArgs e) =>this.Close();
+		private void toolStripMenuItemTopmost_CheckedChanged(object sender, EventArgs e) =>this.TopMost = toolStripMenuItemTopmost.Checked;
+		private void toolStripMenuItemShowControls_CheckedChanged(object sender, EventArgs e) => SetVisibility(toolStripMenuItemShowControls.Checked);
+	    private void toolStripMenuItemShowDate_CheckedChanged(object sender, EventArgs e) => checkBoxShowDate.Checked = toolStripMenuItemShowDate.Checked;
+		private void checkBoxShowDate_CheckedChanged(object sender, EventArgs e) => toolStripMenuItemShowDate.Checked = checkBoxShowDate.Checked;
+	    private void toolStripMenuItemShowWeekday_CheckedChanged(object sender, EventArgs e) => checkBoxShowWeekday.Checked = toolStripMenuItemShowWeekday.Checked;
+		private void checkBoxShowWeekday_CheckedChanged(object sender, EventArgs e) => toolStripMenuItemShowWeekday.Checked = checkBoxShowWeekday.Checked;
 		private void toolStripMenuItemBackgroundColor_Click(object sender, EventArgs e)
 		{
 			ColorDialog colorDialog = new ColorDialog();
@@ -98,17 +64,16 @@ namespace Clok
 			if (sender.ToString() == "Background color")
 			{
 				colorDialog.Color = labelTime.BackColor;
-				if (colorDialog.ShowDialog() == DialogResult.OK)
+				if (colorDialog.ShowDialog(this) == DialogResult.OK)
 					labelTime.BackColor = colorDialog.Color;
 			}
 			else
 			{
 				colorDialog.Color = labelTime.ForeColor;
-				if (colorDialog.ShowDialog() == DialogResult.OK)
+				if (colorDialog.ShowDialog(this) == DialogResult.OK)
 					labelTime.ForeColor = colorDialog.Color;
 			}
 		}
-
 		private void toolStripMenuItemLoadOnWindowsStartup_Click(object sender, EventArgs e)
 		{
 			RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -120,10 +85,24 @@ namespace Clok
 
 		}
 
-		private void toolStripMenuItemTopmost_CheckedChanged_1(object sender, EventArgs e)
-		{
-			this.TopMost = toolStripMenuItemTopmost.Checked;
-		}
-	}
+        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+			if(!TopMost)
+            {
+				this.TopMost = true;
+				this.TopMost = false;
+            }
+        }
+
+        private void toolStripMenuItemShowConsole_CheckedChanged(object sender, EventArgs e)
+        {
+			bool show = toolStripMenuItemShowControls.Checked ? AllocConsole() : FreeConsole();
+        }
+		[DllImport("Kernel32.dll")]
+		static extern bool AllocConsole();
+		[DllImport("Kernel32.dll")]
+		static extern bool FreeConsole();
+
+    }
 		
 }
