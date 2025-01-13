@@ -11,18 +11,27 @@ using System.Drawing.Text;
 using Microsoft.Win32;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 
 namespace Clok
 {
 	public partial class MainForm : Form
 	{
+		FontDialog fontDialog;
 		public MainForm()
 		{
 			InitializeComponent();
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-
+			fontDialog = new FontDialog();
+			toolStripMenuItemShowConsole.Checked = true;
+			//string ex  = Path.GetDirectoryName(Application.ExecutablePath);
+			//Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..\\ICO");
+			//Console.WriteLine(Directory.GetCurrentDirectory());
+			//Console.WriteLine(ex);
+			
+			
 		}
 		
 		void SetVisibility(bool visible)
@@ -96,13 +105,20 @@ namespace Clok
 
         private void toolStripMenuItemShowConsole_CheckedChanged(object sender, EventArgs e)
         {
-			bool show = toolStripMenuItemShowControls.Checked ? AllocConsole() : FreeConsole();
+			bool show = toolStripMenuItemShowConsole.Checked ? AllocConsole() : FreeConsole();
         }
-		[DllImport("Kernel32.dll")]
+		[DllImport("kernel32.dll")]
 		static extern bool AllocConsole();
-		[DllImport("Kernel32.dll")]
+		[DllImport("kernel32.dll")]
 		static extern bool FreeConsole();
 
-    }
+		private void toolStripMenuItemChooseFont_Click(object sender, EventArgs e)
+		{
+			if(fontDialog.ShowDialog(this)==DialogResult.OK)
+			{
+
+			}
+		}
+	}
 		
 }
