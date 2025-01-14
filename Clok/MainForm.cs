@@ -25,7 +25,7 @@ namespace Clok
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 			fontDialog = new FontDialog();
-			toolStripMenuItemShowConsole.Checked = true;
+			//toolStripMenuItemShowConsole.Checked = true;
 			//string ex  = Path.GetDirectoryName(Application.ExecutablePath);
 			//Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..\\ICO");
 			//Console.WriteLine(Directory.GetCurrentDirectory());
