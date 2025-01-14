@@ -16,8 +16,8 @@ namespace Clok
 	{
 		string execution_path = "";
 		string fonts_path = "";
-		PrivateFontCollection pfc;
-		public string FonthPath { get => fonts_path; }
+		//PrivateFontCollection pfc;
+		public string FonthsPath { get => fonts_path; }
 		public string FontFilename { get; set; }
 		public Font Font { get; set; }
 		public FontDialog()
@@ -27,6 +27,14 @@ namespace Clok
 			execution_path = Path.GetDirectoryName(Application.ExecutablePath);
 			fonts_path = $"{execution_path}\\..\\..\\Fonts";
 			LoadFonts();
+		}
+		public FontDialog(string fontname, float fontsize):this()
+		{
+			numericUpDownFontSize.Value = (decimal)fontsize;
+			comboBoxFonts.SelectedIndex = comboBoxFonts.Items.IndexOf(fontname);
+			Font = labelExample.Font;
+			FontFilename = fontname;
+			
 		}
 		void LoadFonts()
 		{
@@ -42,8 +50,8 @@ namespace Clok
         }
 		void SetFont()
         {
-			//PrivateFontCollection pfc= new PrivateFontCollection();
-			pfc = new PrivateFontCollection();
+			PrivateFontCollection pfc= new PrivateFontCollection();
+			//pfc = new PrivateFontCollection();
 			pfc.AddFontFile($"{fonts_path}\\{comboBoxFonts.SelectedItem}");
 			labelExample.Font = new Font(pfc.Families[0], Convert.ToInt32(numericUpDownFontSize.Value));
         }
@@ -52,5 +60,16 @@ namespace Clok
         {
 			SetFont();
         }
-    }
+
+		private void buttonOK_Click(object sender, EventArgs e)
+		{
+			Font = labelExample.Font;
+			FontFilename = comboBoxFonts.SelectedItem.ToString();
+		}
+
+		private void buttonApply_Click(object sender, EventArgs e)
+		{
+			SetFont();
+		}
+	}
 }
