@@ -30,23 +30,61 @@ namespace Clok
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlarmDialog));
-			this.listBoxAlarm = new System.Windows.Forms.ListBox();
+			this.listBoxAlarms = new System.Windows.Forms.ListBox();
+			this.buttonAdd = new System.Windows.Forms.Button();
+			this.buttonDelete = new System.Windows.Forms.Button();
+			this.buttonOK = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// listBoxAlarm
+			// listBoxAlarms
 			// 
-			this.listBoxAlarm.FormattingEnabled = true;
-			this.listBoxAlarm.Location = new System.Drawing.Point(12, 12);
-			this.listBoxAlarm.Name = "listBoxAlarm";
-			this.listBoxAlarm.Size = new System.Drawing.Size(231, 95);
-			this.listBoxAlarm.TabIndex = 0;
+			this.listBoxAlarms.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.listBoxAlarms.FormattingEnabled = true;
+			this.listBoxAlarms.ItemHeight = 16;
+			this.listBoxAlarms.Location = new System.Drawing.Point(12, 12);
+			this.listBoxAlarms.Name = "listBoxAlarms";
+			this.listBoxAlarms.Size = new System.Drawing.Size(231, 180);
+			this.listBoxAlarms.TabIndex = 0;
+			// 
+			// buttonAdd
+			// 
+			this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.buttonAdd.Location = new System.Drawing.Point(249, 12);
+			this.buttonAdd.Name = "buttonAdd";
+			this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+			this.buttonAdd.TabIndex = 1;
+			this.buttonAdd.Text = "Add";
+			this.buttonAdd.UseVisualStyleBackColor = true;
+			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			// 
+			// buttonDelete
+			// 
+			this.buttonDelete.Location = new System.Drawing.Point(249, 41);
+			this.buttonDelete.Name = "buttonDelete";
+			this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+			this.buttonDelete.TabIndex = 2;
+			this.buttonDelete.Text = "Delete";
+			this.buttonDelete.UseVisualStyleBackColor = true;
+			// 
+			// buttonOK
+			// 
+			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.buttonOK.Location = new System.Drawing.Point(249, 168);
+			this.buttonOK.Name = "buttonOK";
+			this.buttonOK.Size = new System.Drawing.Size(75, 23);
+			this.buttonOK.TabIndex = 3;
+			this.buttonOK.Text = "OK";
+			this.buttonOK.UseVisualStyleBackColor = true;
 			// 
 			// AlarmDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(256, 450);
-			this.Controls.Add(this.listBoxAlarm);
+			this.ClientSize = new System.Drawing.Size(333, 204);
+			this.Controls.Add(this.buttonOK);
+			this.Controls.Add(this.buttonDelete);
+			this.Controls.Add(this.buttonAdd);
+			this.Controls.Add(this.listBoxAlarms);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "AlarmDialog";
 			this.Text = "Alarms";
@@ -56,6 +94,9 @@ namespace Clok
 
 		#endregion
 
-		private System.Windows.Forms.ListBox listBoxAlarm;
+		private System.Windows.Forms.ListBox listBoxAlarms;
+		private System.Windows.Forms.Button buttonAdd;
+		private System.Windows.Forms.Button buttonDelete;
+		private System.Windows.Forms.Button buttonOK;
 	}
 }
