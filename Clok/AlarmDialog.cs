@@ -12,7 +12,8 @@ namespace Clok
 {
 	public partial class AlarmDialog : Form
 	{
-		AlarmAdd alarmAdd;
+		 AlarmAdd alarmAdd;
+		public ListBox listBox { get => listBoxAlarms; }
 		public AlarmDialog()
 		{
 			InitializeComponent();
@@ -21,7 +22,13 @@ namespace Clok
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			alarmAdd.ShowDialog();
+			if(alarmAdd.ShowDialog()==DialogResult.OK)
+			{
+				listBoxAlarms.Items.Add(alarmAdd.alarm.ToString());
+				//if(DateTime.Now.Equals(DateTime.Parse(listBox.Items[0].ToString())))
+				//listBox.Items.Add (DateTime.Parse(listBox.Items[0].ToString()).ToString());
+				//listBox.Items.Add (DateTime.Now);
+			}
 		}
 	}
 }

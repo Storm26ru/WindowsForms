@@ -18,6 +18,8 @@ namespace Clok
 {
 	public partial class MainForm : Form
 	{
+		DateTime alarmTime;
+		DateTime bufer;
 		FontDialog fontDialog;
 		AlarmDialog alarmDialog;
 		public MainForm()
@@ -87,6 +89,7 @@ namespace Clok
 		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
+			bufer = DateTime.Now;
 			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 			if (checkBoxShowDate.Checked)
 				labelTime.Text += $"\n{DateTime.Now.ToString("dd.MM.yyyy")}";
@@ -95,6 +98,21 @@ namespace Clok
 			notifyIcon.Text = $"{DateTime.Now.ToString("H: mm")}\n" +
 								$"{DateTime.Now.ToString("dd.MM.yyyy")}\n" +
 								$"{DateTime.Now.DayOfWeek}";
+			if (alarmDialog.listBox.Items.Count != 0)
+			{
+				if (alarmTime.CompareTo(bufer)<0)
+				//if (
+				//	alarmTime.Year == DateTime.Now.Year &&
+				//	alarmTime.Month == DateTime.Now.Month &&
+				//	alarmTime.Day == DateTime.Now.Day&&
+				//	alarmTime.Hour==DateTime.Now.Hour&&
+				//	alarmTime.Minute==DateTime.Now.Minute&&
+				//	alarmTime.Second==DateTime.Now.Second)
+				{
+					System.Threading.Thread.Sleep(1000);
+					MessageBox.Show("Получилось", "Warning", MessageBoxButtons.OK, MessageBoxIcon.None);
+				}
+			}
 		}
 
 		private void buttonHideControls_Click(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = false;
@@ -168,7 +186,10 @@ namespace Clok
 
 		private void alarmsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			alarmDialog.ShowDialog();
+			if(alarmDialog.ShowDialog()==DialogResult.OK)
+			{
+				alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
+			}
 		}
 	}
 		
