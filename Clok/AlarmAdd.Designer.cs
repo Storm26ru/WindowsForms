@@ -75,6 +75,7 @@ namespace Clok
 			this.Controls.Add(this.buttonOK);
 			this.Controls.Add(this.dateTimePickerTime);
 			this.Controls.Add(this.dateTimePickerDate);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "AlarmAdd";
 			this.Text = "AlarmAdd";

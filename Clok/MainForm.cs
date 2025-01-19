@@ -41,6 +41,14 @@ namespace Clok
 			this.ShowInTaskbar = visible;
 			this.TransparencyKey = visible ? Color.Empty : this.BackColor;
 		}
+		void AlarmSound()
+		{
+			if (alarmDialog.uriFileSoud.Path != "/")
+				axWindowsMediaPlayer.URL = alarmDialog.uriFileSoud.Path;
+			axWindowsMediaPlayer.settings.volume = 70;
+			axWindowsMediaPlayer.Ctlcontrols.play();
+			axWindowsMediaPlayer.Visible = true;
+		}
 		void LoadSettings()
 		{
 			StreamReader sr = null;
@@ -66,7 +74,7 @@ namespace Clok
 
 				}
 				sr.Close();
-				if (count != 0) alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
+				if (alarmDialog.listBox.Items.Count>0) alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
 				fontDialog = new FontDialog(fontname, fontsize);
 				labelTime.Font = fontDialog.Font;
 			}
@@ -114,11 +122,7 @@ namespace Clok
 				alarmTime.Second==DateTime.Now.Second)
 			{
 				System.Threading.Thread.Sleep(1000);
-				if (alarmDialog.uriFileSoud.Path !="/")
-					axWindowsMediaPlayer.URL = alarmDialog.uriFileSoud.Path;
-				axWindowsMediaPlayer.settings.volume = 50;
-				axWindowsMediaPlayer.Ctlcontrols.play();
-				axWindowsMediaPlayer.Visible = true;
+				AlarmSound();
 				alarmDialog.listBox.Items.RemoveAt(0);
 				if(alarmDialog.listBox.Items.Count>0)
 					alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
@@ -214,7 +218,7 @@ namespace Clok
 
 		private void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
 		{
-			if(e.newState==1)
+			if(e.newState==1|e.newState==2)
 				axWindowsMediaPlayer.Visible = false;
 		}
 	}
