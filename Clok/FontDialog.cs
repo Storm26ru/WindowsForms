@@ -23,7 +23,6 @@ namespace Clok
 		public FontDialog()
 		{
 			InitializeComponent();
-			//pfc = new PrivateFontCollection();
 			execution_path = Path.GetDirectoryName(Application.ExecutablePath);
 			fonts_path = $"{execution_path}\\..\\..\\Fonts";
 			LoadFonts();
@@ -50,7 +49,6 @@ namespace Clok
         }
 		void SetFont()
         {
-			//PrivateFontCollection pfc= new PrivateFontCollection();
 			pfc = new PrivateFontCollection();
 			pfc.AddFontFile($"{fonts_path}\\{comboBoxFonts.SelectedItem}");
 			labelExample.Font = new Font(pfc.Families[0], Convert.ToInt32(numericUpDownFontSize.Value));
