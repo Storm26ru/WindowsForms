@@ -34,6 +34,7 @@ namespace Clok
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonDelete = new System.Windows.Forms.Button();
 			this.buttonOK = new System.Windows.Forms.Button();
+			this.buttonSound = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// listBoxAlarms
@@ -45,6 +46,7 @@ namespace Clok
 			this.listBoxAlarms.Name = "listBoxAlarms";
 			this.listBoxAlarms.Size = new System.Drawing.Size(231, 180);
 			this.listBoxAlarms.TabIndex = 0;
+			this.listBoxAlarms.DoubleClick += new System.EventHandler(this.listBoxAlarms_DoubleClick);
 			// 
 			// buttonAdd
 			// 
@@ -65,6 +67,7 @@ namespace Clok
 			this.buttonDelete.TabIndex = 2;
 			this.buttonDelete.Text = "Delete";
 			this.buttonDelete.UseVisualStyleBackColor = true;
+			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
 			// buttonOK
 			// 
@@ -76,11 +79,22 @@ namespace Clok
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = true;
 			// 
+			// buttonSound
+			// 
+			this.buttonSound.Location = new System.Drawing.Point(249, 71);
+			this.buttonSound.Name = "buttonSound";
+			this.buttonSound.Size = new System.Drawing.Size(75, 23);
+			this.buttonSound.TabIndex = 4;
+			this.buttonSound.Text = "Sound";
+			this.buttonSound.UseVisualStyleBackColor = true;
+			this.buttonSound.Click += new System.EventHandler(this.buttonSound_Click);
+			// 
 			// AlarmDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(333, 204);
+			this.Controls.Add(this.buttonSound);
 			this.Controls.Add(this.buttonOK);
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonAdd);
@@ -98,5 +112,6 @@ namespace Clok
 		private System.Windows.Forms.Button buttonAdd;
 		private System.Windows.Forms.Button buttonDelete;
 		private System.Windows.Forms.Button buttonOK;
+		private System.Windows.Forms.Button buttonSound;
 	}
 }

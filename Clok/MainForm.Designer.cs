@@ -45,6 +45,8 @@ namespace Clok
 			this.toolStripMenuItemBackgroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.alarmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemLoadOnWindowsStartup = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,9 +55,9 @@ namespace Clok
 			this.buttonHideControls = new System.Windows.Forms.Button();
 			this.checkBoxShowWeekday = new System.Windows.Forms.CheckBox();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.alarmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+			this.axWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
 			this.contextMenuStrip.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// labelTime
@@ -90,7 +92,7 @@ namespace Clok
             this.toolStripSeparator4,
             this.toolStripMenuItemExit});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(210, 276);
+			this.contextMenuStrip.Size = new System.Drawing.Size(210, 254);
 			// 
 			// toolStripMenuItemTopmost
 			// 
@@ -179,6 +181,18 @@ namespace Clok
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(206, 6);
 			// 
+			// alarmsToolStripMenuItem
+			// 
+			this.alarmsToolStripMenuItem.Name = "alarmsToolStripMenuItem";
+			this.alarmsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.alarmsToolStripMenuItem.Text = "Alarms";
+			this.alarmsToolStripMenuItem.Click += new System.EventHandler(this.alarmsToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
+			// 
 			// toolStripMenuItemLoadOnWindowsStartup
 			// 
 			this.toolStripMenuItemLoadOnWindowsStartup.CheckOnClick = true;
@@ -248,24 +262,24 @@ namespace Clok
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
-			// alarmsToolStripMenuItem
+			// axWindowsMediaPlayer
 			// 
-			this.alarmsToolStripMenuItem.Name = "alarmsToolStripMenuItem";
-			this.alarmsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-			this.alarmsToolStripMenuItem.Text = "Alarms";
-			this.alarmsToolStripMenuItem.Click += new System.EventHandler(this.alarmsToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator5
-			// 
-			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
+			this.axWindowsMediaPlayer.Enabled = true;
+			this.axWindowsMediaPlayer.Location = new System.Drawing.Point(11, 293);
+			this.axWindowsMediaPlayer.Name = "axWindowsMediaPlayer";
+			this.axWindowsMediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer.OcxState")));
+			this.axWindowsMediaPlayer.Size = new System.Drawing.Size(248, 35);
+			this.axWindowsMediaPlayer.TabIndex = 4;
+			this.axWindowsMediaPlayer.Visible = false;
+			this.axWindowsMediaPlayer.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(278, 298);
+			this.ClientSize = new System.Drawing.Size(266, 335);
+			this.Controls.Add(this.axWindowsMediaPlayer);
 			this.Controls.Add(this.checkBoxShowWeekday);
 			this.Controls.Add(this.buttonHideControls);
 			this.Controls.Add(this.checkBoxShowDate);
@@ -278,6 +292,7 @@ namespace Clok
 			this.Text = "Clock VPD_311";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.contextMenuStrip.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -309,6 +324,7 @@ namespace Clok
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowConsole;
 		private System.Windows.Forms.ToolStripMenuItem alarmsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+		private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer;
 	}
 }
 

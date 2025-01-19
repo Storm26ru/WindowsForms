@@ -19,7 +19,6 @@ namespace Clok
 	public partial class MainForm : Form
 	{
 		DateTime alarmTime;
-		DateTime bufer;
 		FontDialog fontDialog;
 		AlarmDialog alarmDialog;
 		public MainForm()
@@ -27,15 +26,10 @@ namespace Clok
 			InitializeComponent();
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-			//fontDialog = new FontDialog();
-			//toolStripMenuItemShowConsole.Checked = true;
-			//string ex  = Path.GetDirectoryName(Application.ExecutablePath);
-			//Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..\\ICO");
-			//Console.WriteLine(Directory.GetCurrentDirectory());
-			//Console.WriteLine(ex);
+			alarmDialog = new AlarmDialog();
 			LoadSettings();
 			if (fontDialog == null) fontDialog = new FontDialog();
-			alarmDialog = new AlarmDialog();
+			axWindowsMediaPlayer.Ctlcontrols.stop();
 		}
 		
 		void SetVisibility(bool visible)
@@ -62,7 +56,17 @@ namespace Clok
 				float fontsize = (float)Convert.ToDouble(sr.ReadLine());
 				labelTime.BackColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
 				labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
+				alarmDialog.uriFileSoud.Path = sr.ReadLine();
+				int count = Convert.ToInt32(sr.ReadLine());
+				for (int i = 0; i < count; i++)
+				{
+					string line = sr.ReadLine();
+					if(DateTime.Parse(line).CompareTo(DateTime.Now)>0)
+						alarmDialog.listBox.Items.Add(line);
+
+				}
 				sr.Close();
+				if (count != 0) alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
 				fontDialog = new FontDialog(fontname, fontsize);
 				labelTime.Font = fontDialog.Font;
 			}
@@ -85,11 +89,14 @@ namespace Clok
 			sw.WriteLine($"{labelTime.Font.Size}");
 			sw.WriteLine($"{labelTime.BackColor.ToArgb()}");
 			sw.WriteLine($"{labelTime.ForeColor.ToArgb()}");
+			sw.WriteLine($"{alarmDialog.uriFileSoud.Path}");
+			sw.WriteLine($"{alarmDialog.listBox.Items.Count}");
+			for (int i = 0; i < alarmDialog.listBox.Items.Count; i++)
+				sw.WriteLine($"{alarmDialog.listBox.Items[i].ToString()}");
 			sw.Close();
 		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
-			bufer = DateTime.Now;
 			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 			if (checkBoxShowDate.Checked)
 				labelTime.Text += $"\n{DateTime.Now.ToString("dd.MM.yyyy")}";
@@ -98,33 +105,45 @@ namespace Clok
 			notifyIcon.Text = $"{DateTime.Now.ToString("H: mm")}\n" +
 								$"{DateTime.Now.ToString("dd.MM.yyyy")}\n" +
 								$"{DateTime.Now.DayOfWeek}";
-			if (alarmDialog.listBox.Items.Count != 0)
+			
+			if (alarmTime.Year == DateTime.Now.Year &&
+				alarmTime.Month == DateTime.Now.Month &&
+				alarmTime.Day == DateTime.Now.Day&&
+				alarmTime.Hour==DateTime.Now.Hour&&
+				alarmTime.Minute==DateTime.Now.Minute&&
+				alarmTime.Second==DateTime.Now.Second)
 			{
-				if (alarmTime.CompareTo(bufer)<0)
-				//if (
-				//	alarmTime.Year == DateTime.Now.Year &&
-				//	alarmTime.Month == DateTime.Now.Month &&
-				//	alarmTime.Day == DateTime.Now.Day&&
-				//	alarmTime.Hour==DateTime.Now.Hour&&
-				//	alarmTime.Minute==DateTime.Now.Minute&&
-				//	alarmTime.Second==DateTime.Now.Second)
-				{
-					System.Threading.Thread.Sleep(1000);
-					MessageBox.Show("Получилось", "Warning", MessageBoxButtons.OK, MessageBoxIcon.None);
-				}
+				System.Threading.Thread.Sleep(1000);
+				if (alarmDialog.uriFileSoud.Path !="/")
+					axWindowsMediaPlayer.URL = alarmDialog.uriFileSoud.Path;
+				axWindowsMediaPlayer.settings.volume = 50;
+				axWindowsMediaPlayer.Ctlcontrols.play();
+				axWindowsMediaPlayer.Visible = true;
+				alarmDialog.listBox.Items.RemoveAt(0);
+				if(alarmDialog.listBox.Items.Count>0)
+					alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
 			}
+			
 		}
 
 		private void buttonHideControls_Click(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = false;
 
 		private void labelTime_DoubleClick(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = true;
+
 		private void toolStripMenuItemExit_Click(object sender, EventArgs e) =>this.Close();
+
 		private void toolStripMenuItemTopmost_CheckedChanged(object sender, EventArgs e) =>this.TopMost = toolStripMenuItemTopmost.Checked;
+
 		private void toolStripMenuItemShowControls_CheckedChanged(object sender, EventArgs e) => SetVisibility(toolStripMenuItemShowControls.Checked);
+
 	    private void toolStripMenuItemShowDate_CheckedChanged(object sender, EventArgs e) => checkBoxShowDate.Checked = toolStripMenuItemShowDate.Checked;
+
 		private void checkBoxShowDate_CheckedChanged(object sender, EventArgs e) => toolStripMenuItemShowDate.Checked = checkBoxShowDate.Checked;
+
 	    private void toolStripMenuItemShowWeekday_CheckedChanged(object sender, EventArgs e) => checkBoxShowWeekday.Checked = toolStripMenuItemShowWeekday.Checked;
+
 		private void checkBoxShowWeekday_CheckedChanged(object sender, EventArgs e) => toolStripMenuItemShowWeekday.Checked = checkBoxShowWeekday.Checked;
+
 		private void toolStripMenuItemBackgroundColor_Click(object sender, EventArgs e)
 		{
 			ColorDialog colorDialog = new ColorDialog();
@@ -188,8 +207,15 @@ namespace Clok
 		{
 			if(alarmDialog.ShowDialog()==DialogResult.OK)
 			{
+				if(alarmDialog.listBox.Items.Count>0)
 				alarmTime = DateTime.Parse(alarmDialog.listBox.Items[0].ToString());
 			}
+		}
+
+		private void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+		{
+			if(e.newState==1)
+				axWindowsMediaPlayer.Visible = false;
 		}
 	}
 		
