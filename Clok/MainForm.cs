@@ -172,7 +172,8 @@ namespace Clok
 				key.SetValue("Clok_VPD_311", Application.ExecutablePath);
 			else
 				key.DeleteValue("Clok_VPD_311");
-			key.Close();
+			//key.Close();
+			key.Dispose();
 
 		}
 

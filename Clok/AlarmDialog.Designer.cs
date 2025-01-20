@@ -99,7 +99,7 @@ namespace Clok
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonAdd);
 			this.Controls.Add(this.listBoxAlarms);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "AlarmDialog";
 			this.Text = "Alarms";
