@@ -19,7 +19,7 @@ namespace Clok
 	public partial class MainForm : Form
 	{
 		FontDialog fontDialog;
-		AlarmDialog alarmDialog;
+		AlarmForms alarmForms;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -33,7 +33,7 @@ namespace Clok
 			//Console.WriteLine(ex);
 			LoadSettings();
 			if (fontDialog == null) fontDialog = new FontDialog();
-			alarmDialog = new AlarmDialog();
+			alarmForms = new AlarmForms();
 		}
 		
 		void SetVisibility(bool visible)
@@ -168,7 +168,7 @@ namespace Clok
 
 		private void alarmsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			alarmDialog.ShowDialog();
+			alarmForms.ShowDialog();
 		}
 	}
 		

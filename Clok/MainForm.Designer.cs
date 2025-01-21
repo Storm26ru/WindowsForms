@@ -45,6 +45,8 @@ namespace Clok
 			this.toolStripMenuItemBackgroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItemAlarms = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemLoadOnWindowsStartup = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,13 +55,12 @@ namespace Clok
 			this.buttonHideControls = new System.Windows.Forms.Button();
 			this.checkBoxShowWeekday = new System.Windows.Forms.CheckBox();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.alarmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// labelTime
 			// 
+			this.labelTime.AllowDrop = true;
 			this.labelTime.AutoSize = true;
 			this.labelTime.ContextMenuStrip = this.contextMenuStrip;
 			this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -84,7 +85,7 @@ namespace Clok
             this.toolStripMenuItemChooseFont,
             this.toolStripMenuItemColors,
             this.toolStripSeparator3,
-            this.alarmsToolStripMenuItem,
+            this.toolStripMenuItemAlarms,
             this.toolStripSeparator5,
             this.toolStripMenuItemLoadOnWindowsStartup,
             this.toolStripSeparator4,
@@ -179,6 +180,18 @@ namespace Clok
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(206, 6);
 			// 
+			// toolStripMenuItemAlarms
+			// 
+			this.toolStripMenuItemAlarms.Name = "toolStripMenuItemAlarms";
+			this.toolStripMenuItemAlarms.Size = new System.Drawing.Size(209, 22);
+			this.toolStripMenuItemAlarms.Text = "Alarms";
+			this.toolStripMenuItemAlarms.Click += new System.EventHandler(this.alarmsToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
+			// 
 			// toolStripMenuItemLoadOnWindowsStartup
 			// 
 			this.toolStripMenuItemLoadOnWindowsStartup.CheckOnClick = true;
@@ -248,18 +261,6 @@ namespace Clok
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
-			// alarmsToolStripMenuItem
-			// 
-			this.alarmsToolStripMenuItem.Name = "alarmsToolStripMenuItem";
-			this.alarmsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-			this.alarmsToolStripMenuItem.Text = "Alarms";
-			this.alarmsToolStripMenuItem.Click += new System.EventHandler(this.alarmsToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator5
-			// 
-			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,7 +308,7 @@ namespace Clok
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowConsole;
-		private System.Windows.Forms.ToolStripMenuItem alarmsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAlarms;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 	}
 }

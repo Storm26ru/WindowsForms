@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Clok
 {
-	public partial class AlarmDialog : Form
+	public partial class AlarmForms : Form
 	{
-		public AlarmDialog()
+		AddAlarmDialog alarmDialog;
+		public AlarmForms()
 		{
 			InitializeComponent();
+			alarmDialog = new AddAlarmDialog();
+		}
+
+		private void buttonAdd_Click(object sender, EventArgs e)
+		{
+			alarmDialog.ShowDialog();
 		}
 	}
 }
