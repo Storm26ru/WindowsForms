@@ -21,7 +21,10 @@ namespace Clok
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			alarmDialog.ShowDialog();
+			if(alarmDialog.ShowDialog()==DialogResult.OK)
+			{
+				listBoxAlarms.Items.Add(new Alarm(alarmDialog.Alarm));
+			}
 		}
 	}
 }

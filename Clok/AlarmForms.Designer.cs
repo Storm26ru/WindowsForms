@@ -42,6 +42,7 @@ namespace Clok
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.listBoxAlarms.FormattingEnabled = true;
+			this.listBoxAlarms.HorizontalScrollbar = true;
 			this.listBoxAlarms.Location = new System.Drawing.Point(12, 12);
 			this.listBoxAlarms.Name = "listBoxAlarms";
 			this.listBoxAlarms.Size = new System.Drawing.Size(459, 225);

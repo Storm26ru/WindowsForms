@@ -36,6 +36,9 @@ namespace Clok
 			this.buttonOK = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.labelFilename = new System.Windows.Forms.Label();
+			this.buttonSound = new System.Windows.Forms.Button();
+			this.richTextBoxMessage = new System.Windows.Forms.RichTextBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// dateTimePickerDate
@@ -94,7 +97,7 @@ namespace Clok
 			// buttonOK
 			// 
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.buttonOK.Location = new System.Drawing.Point(196, 186);
+			this.buttonOK.Location = new System.Drawing.Point(196, 302);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
 			this.buttonOK.TabIndex = 4;
@@ -105,7 +108,7 @@ namespace Clok
 			// buttonCancel
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(278, 186);
+			this.buttonCancel.Location = new System.Drawing.Point(278, 302);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 5;
@@ -115,17 +118,53 @@ namespace Clok
 			// labelFilename
 			// 
 			this.labelFilename.AutoSize = true;
+			this.labelFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.labelFilename.Location = new System.Drawing.Point(10, 128);
 			this.labelFilename.Name = "labelFilename";
-			this.labelFilename.Size = new System.Drawing.Size(49, 13);
+			this.labelFilename.Size = new System.Drawing.Size(64, 16);
 			this.labelFilename.TabIndex = 6;
 			this.labelFilename.Text = "Filename";
+			// 
+			// buttonSound
+			// 
+			this.buttonSound.Location = new System.Drawing.Point(12, 147);
+			this.buttonSound.Name = "buttonSound";
+			this.buttonSound.Size = new System.Drawing.Size(75, 23);
+			this.buttonSound.TabIndex = 7;
+			this.buttonSound.Text = "Sound";
+			this.buttonSound.UseVisualStyleBackColor = true;
+			this.buttonSound.Click += new System.EventHandler(this.buttonSound_Click);
+			// 
+			// richTextBoxMessage
+			// 
+			this.richTextBoxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.richTextBoxMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.richTextBoxMessage.Location = new System.Drawing.Point(12, 192);
+			this.richTextBoxMessage.Name = "richTextBoxMessage";
+			this.richTextBoxMessage.Size = new System.Drawing.Size(341, 83);
+			this.richTextBoxMessage.TabIndex = 8;
+			this.richTextBoxMessage.Text = "";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label1.Location = new System.Drawing.Point(12, 173);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(65, 16);
+			this.label1.TabIndex = 9;
+			this.label1.Text = "Message";
 			// 
 			// AddAlarmDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(369, 221);
+			this.ClientSize = new System.Drawing.Size(369, 337);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.richTextBoxMessage);
+			this.Controls.Add(this.buttonSound);
 			this.Controls.Add(this.labelFilename);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonOK);
@@ -151,5 +190,8 @@ namespace Clok
 		private System.Windows.Forms.Button buttonOK;
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Label labelFilename;
+		private System.Windows.Forms.Button buttonSound;
+		private System.Windows.Forms.RichTextBox richTextBoxMessage;
+		private System.Windows.Forms.Label label1;
 	}
 }
