@@ -34,6 +34,7 @@ namespace Clok
 			this.labelAlarmInfo = new System.Windows.Forms.Label();
 			this.buttonAdd = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
+			this.buttonSort = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// listBoxAlarms
@@ -80,11 +81,23 @@ namespace Clok
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			// 
+			// buttonSort
+			// 
+			this.buttonSort.AutoEllipsis = true;
+			this.buttonSort.Location = new System.Drawing.Point(234, 258);
+			this.buttonSort.Name = "buttonSort";
+			this.buttonSort.Size = new System.Drawing.Size(75, 23);
+			this.buttonSort.TabIndex = 4;
+			this.buttonSort.Text = "Sort";
+			this.buttonSort.UseVisualStyleBackColor = true;
+			this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+			// 
 			// AlarmForms
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(483, 294);
+			this.Controls.Add(this.buttonSort);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonAdd);
 			this.Controls.Add(this.labelAlarmInfo);
@@ -104,5 +117,6 @@ namespace Clok
 		private System.Windows.Forms.Label labelAlarmInfo;
 		private System.Windows.Forms.Button buttonAdd;
 		private System.Windows.Forms.Button buttonCancel;
+		private System.Windows.Forms.Button buttonSort;
 	}
 }

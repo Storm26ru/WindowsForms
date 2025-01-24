@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clok
 {
-	public class Alarm
+	public class Alarm//:IComparable<Alarm>
 	{
 		public DateTime Date { get; set; }
 		public TimeSpan Time { get; set; }
@@ -38,5 +38,9 @@ namespace Clok
 			textline += $"{Message}";
 			return textline;
 		}
+		//public int CompareTo(Alarm other)
+		//{
+		//	return this.Time.CompareTo(other.Time);
+		//}
 	}
 }
