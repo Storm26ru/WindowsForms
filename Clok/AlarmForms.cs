@@ -25,7 +25,7 @@ namespace Clok
 			Alarm[] alarmsToday = listBoxAlarms.Items.Cast<Alarm>().Where(
 				a => a.Time > DateTime.Now.TimeOfDay && (a.Date == DateTime.Now.Date || a.Date == DateTime.MinValue)).OrderBy(a =>a.Time).ToArray();
 			Alarm[] alarm = listBoxAlarms.Items.Cast<Alarm>().Where(
-				a => a.Date != DateTime.Now.Date && a.Date != DateTime.MinValue).OrderBy(a => a.Time).ToArray();
+				a => (a.Date != DateTime.Now.Date && a.Date !=DateTime.MinValue ) ||( a.Time<DateTime.Now.TimeOfDay && a.Date == DateTime.MinValue)).OrderBy(a => a.Time).ToArray();
 			listBoxAlarms.Items.Clear();
 			listBoxAlarms.Items.AddRange(alarmsToday);
 			listBoxAlarms.Items.AddRange(alarm);
@@ -35,13 +35,34 @@ namespace Clok
 		{
 			if(alarmDialog.ShowDialog()==DialogResult.OK)
 			{
-				listBoxAlarms.Items.Add(new Alarm(alarmDialog.Alarm));
+				if(listBoxAlarms.FindString(alarmDialog.Alarm.ToString())<0)
+                {
+					listBoxAlarms.Items.Add(new Alarm(alarmDialog.Alarm));
+					this.SortListBox();
+                }
 			}
 		}
 
-		private void buttonSort_Click(object sender, EventArgs e)
-		{
+		public void Sort()
+        {
 			this.SortListBox();
-		}
-	}
+        }
+		private void buttonDelete_Click(object sender, EventArgs e) => listBoxAlarms.Items.Remove(listBoxAlarms.SelectedItem);
+
+        private void listBoxAlarms_DoubleClick(object sender, EventArgs e)
+        {
+			if (listBoxAlarms.Items.Count > 0)
+			{
+				if (listBoxAlarms.SelectedItem != null)
+				{
+					alarmDialog.Alarm = (Alarm)listBoxAlarms.SelectedItem;
+					if (alarmDialog.ShowDialog() == DialogResult.OK)
+					{
+						listBoxAlarms.Items[listBoxAlarms.SelectedIndex] = alarmDialog.Alarm;
+					}
+				}
+			}
+			else buttonAdd_Click(sender, e);
+        }
+    }
 }

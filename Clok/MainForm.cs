@@ -86,6 +86,7 @@ namespace Clok
 			sw.WriteLine($"{labelTime.ForeColor.ToArgb()}");
 			sw.Close();
 		}
+		bool DayOfWeek (Alarm alarm) => alarm.Date == DateTime.MinValue ? alarm.Week.ToString().Contains(DateTime.Now.DayOfWeek.ToString()) : true;
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -96,13 +97,19 @@ namespace Clok
 			notifyIcon.Text = $"{DateTime.Now.ToString("H: mm")}\n" +
 								$"{DateTime.Now.ToString("dd.MM.yyyy")}\n" +
 								$"{DateTime.Now.DayOfWeek}";
-			if(alarm!=null && 
+			if (alarm != null && DayOfWeek(alarm) &&
 					alarm.Time.Hours == DateTime.Now.Hour &&
-					alarm.Time.Minutes ==DateTime.Now.Minute &&
-					alarm.Time.Seconds == DateTime.Now.Second) Console.WriteLine("Alarm");
+					alarm.Time.Minutes == DateTime.Now.Minute &&
+					alarm.Time.Seconds == DateTime.Now.Second)
+			{
+				Console.WriteLine("Alarm");
+				alarmForms.Sort();
+
+			}
 
 			if (alarmForms.listBox.Items.Count > 0) alarm = (Alarm)alarmForms.listBox.Items[0];
 		}
+
 
 		private void buttonHideControls_Click(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked = false;
 

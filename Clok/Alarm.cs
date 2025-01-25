@@ -38,6 +38,19 @@ namespace Clok
 			textline += $"{Message}";
 			return textline;
 		}
+		//public static bool operator ==(Alarm left, Alarm right)
+  //      {
+		//	return
+		//		left.Date == right.Date &&
+		//		left.Time == right.Time &&
+		//		left.Week == right.Week &&
+		//		left.Filename == right.Filename &&
+		//		left.Message == right.Message;
+		//}
+		//public static bool operator !=(Alarm left,Alarm right)
+  //      {
+		//	return !(left == right);
+		//}
 		//public int CompareTo(Alarm other)
 		//{
 		//	return this.Time.CompareTo(other.Time);
