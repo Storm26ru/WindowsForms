@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clok
 {
-	public class Alarm//:IComparable<Alarm>
+	public class Alarm
 	{
 		public DateTime Date { get; set; }
 		public TimeSpan Time { get; set; }
@@ -17,6 +17,7 @@ namespace Clok
 		public Alarm()
 		{
 			Date = DateTime.MinValue;
+			Week = new Week();
 		}
 		public Alarm(DateTime date,TimeSpan time,Week week,string filename, string message)
 		{
@@ -31,29 +32,13 @@ namespace Clok
 		public override string ToString()
 		{
 			string textline = "";
-			if (Date != DateTime.MinValue) textline += $"{Date.ToString("yyyy.MM.d")}\t";
-			textline += DateTime.Today.Add(Time).ToString("hh:mm:ss tt")+"\t";
-			textline += $"{Week}\t";
-			textline += $"{Filename}\t";
-			textline += $"{Message}";
+			if (Date != DateTime.MinValue) textline += $"Date: {Date.ToString("yyyy.MM.d")}  ";
+			else textline += $"Days: {Week} ";
+			textline += $"Time: {DateTime.Today.Add(Time).ToString("hh:mm:ss tt")}  ";
+			textline += $"Sound: {Filename} ";
+			textline += $"Message: {Message}";
 			return textline;
 		}
-		//public static bool operator ==(Alarm left, Alarm right)
-  //      {
-		//	return
-		//		left.Date == right.Date &&
-		//		left.Time == right.Time &&
-		//		left.Week == right.Week &&
-		//		left.Filename == right.Filename &&
-		//		left.Message == right.Message;
-		//}
-		//public static bool operator !=(Alarm left,Alarm right)
-  //      {
-		//	return !(left == right);
-		//}
-		//public int CompareTo(Alarm other)
-		//{
-		//	return this.Time.CompareTo(other.Time);
-		//}
+	
 	}
 }

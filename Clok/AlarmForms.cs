@@ -59,6 +59,7 @@ namespace Clok
 					if (alarmDialog.ShowDialog() == DialogResult.OK)
 					{
 						listBoxAlarms.Items[listBoxAlarms.SelectedIndex] = alarmDialog.Alarm;
+						this.SortListBox();
 					}
 				}
 			}

@@ -35,18 +35,17 @@ namespace Clok
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-
-			bool[] days = new bool[7];
-
-			for (int i = 0; i<checkedListBoxWeekdays.Items.Count;i++)
+			if (checkedListBoxWeekdays.Enabled)
 			{
-				days[i] = checkedListBoxWeekdays.GetItemChecked(i);
+				bool[] days = new bool[checkedListBoxWeekdays.Items.Count];
+				for (int i = 0; i < checkedListBoxWeekdays.Items.Count; i++) days[i] = checkedListBoxWeekdays.GetItemChecked(i);
+				Alarm.Date = DateTime.MinValue;
+				Alarm.Week = new Week(days);
 			}
-			Week week = new Week(days);
-			Console.WriteLine(week);
+			else Alarm.Week = new Week();
+			Console.WriteLine(Alarm.Week);
 			if (checkBoxUseDate.Checked) Alarm.Date = dateTimePickerDate.Value.Date;
 			Alarm.Time = dateTimePickerTime.Value.TimeOfDay;
-			Alarm.Week = week;
 			Alarm.Filename = labelFilename.Text;
 			Alarm.Message = richTextBoxMessage.Text;
 
@@ -56,6 +55,19 @@ namespace Clok
 		{
 			if (openFile.ShowDialog() == DialogResult.OK)
 				labelFilename.Text = openFile.FileName;
+		}
+
+		private void AddAlarmDialog_Load(object sender, EventArgs e)
+		{
+			if(Alarm.Date!=DateTime.MinValue)
+			{
+				checkBoxUseDate.Checked = true;
+				dateTimePickerDate.Value = Alarm.Date;
+			}
+			dateTimePickerTime.Value = DateTime.Now.Date + Alarm.Time;
+			for(byte i = 0; i<checkedListBoxWeekdays.Items.Count;i++) checkedListBoxWeekdays.SetItemChecked(i, Alarm.Week.Days(i));
+			labelFilename.Text = Alarm.Filename;
+			richTextBoxMessage.Text = Alarm.Message;
 		}
 	}
 }

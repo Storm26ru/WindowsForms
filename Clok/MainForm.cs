@@ -35,6 +35,7 @@ namespace Clok
 			LoadSettings();
 			if (fontDialog == null) fontDialog = new FontDialog();
 			alarmForms = new AlarmForms();
+			axWindowsMediaPlayer.Ctlcontrols.stop();
 		}
 		
 		void SetVisibility(bool visible)
@@ -87,6 +88,13 @@ namespace Clok
 			sw.Close();
 		}
 		bool DayOfWeek (Alarm alarm) => alarm.Date == DateTime.MinValue ? alarm.Week.ToString().Contains(DateTime.Now.DayOfWeek.ToString()) : true;
+		void AlarmSound()
+		{
+			if ( alarm.Filename!= "") axWindowsMediaPlayer.URL = alarm.Filename;
+			axWindowsMediaPlayer.settings.volume = 70;
+			axWindowsMediaPlayer.Ctlcontrols.play();
+			axWindowsMediaPlayer.Visible = true;
+		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -102,7 +110,10 @@ namespace Clok
 					alarm.Time.Minutes == DateTime.Now.Minute &&
 					alarm.Time.Seconds == DateTime.Now.Second)
 			{
+				System.Threading.Thread.Sleep(1000);
 				Console.WriteLine("Alarm");
+				AlarmSound();
+				if (alarm.Message != "") MessageBox.Show(alarm.Message, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				alarmForms.Sort();
 
 			}
@@ -184,6 +195,11 @@ namespace Clok
 		{
 			alarmForms.ShowDialog();
 			
+		}
+
+		private void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+		{
+			if (e.newState == 1 | e.newState == 2) axWindowsMediaPlayer.Visible = false;
 		}
 	}
 		

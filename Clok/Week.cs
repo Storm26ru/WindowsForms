@@ -8,8 +8,12 @@ namespace Clok
 {
 	public class Week
 	{
-		byte days=0;
-		public Week(bool[]days)
+		byte days;
+		public Week()
+		{
+			days = 0;
+		}
+		public Week(bool[]days):this()
 		{
 			for(byte i =0; i<days.Length;i++)
 			{
@@ -29,6 +33,7 @@ namespace Clok
 			}
 			return Weekdays;
 		}
+		public bool Days(byte i) => Convert.ToBoolean(days & (1 << i));
 		
 	}
 }

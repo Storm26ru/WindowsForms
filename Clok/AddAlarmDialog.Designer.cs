@@ -176,6 +176,7 @@ namespace Clok
 			this.Name = "AddAlarmDialog";
 			this.ShowInTaskbar = false;
 			this.Text = "AddAlarmDialog";
+			this.Load += new System.EventHandler(this.AddAlarmDialog_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
